@@ -2,10 +2,10 @@ package com.devops.springbootapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @SpringBootApplication
 public class SpringBootAppApplication {
 
@@ -14,6 +14,6 @@ public class SpringBootAppApplication {
 	}
 	@GetMapping("/")
 	public String Home() {
-		return "This backend-v1 is deploy on jenkins";
+		return "index";
 	}
 }
