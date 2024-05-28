@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    options {
-            skipStagesAfterUnstable()
+    tools {
+       maven "MAVEN_HOME" // Install the Maven version configured as "M3" and add it to the path.
     }
     stages {
         stage('Checkout') {
@@ -16,12 +16,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package' // Commande pour construire l'application Spring Boot
+                bat "mvn -B -DskipTests clean package" // Commande pour construire l'application Spring Boot
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test' // Commande pour exécuter les tests
+                bat "mvn test" // Commande pour exécuter les tests
             }
             post {
                 always {
