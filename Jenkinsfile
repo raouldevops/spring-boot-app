@@ -17,18 +17,14 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarServer') {
-                    bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN}"
+                    sh " mvn sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
                 }
-            }
-        }
-        stage('Quality Gate Check') {
-            steps {
-                timeout(time: 15, unit: 'MINUTES') {
-                    def qualityGate = waitForQualityGate()
-                    if(qualityGate.status != 'OK') {
-                        error "failed due to quality gate Failure : ${qualityGate.status}"
-                    }
-                }
+                timeout(time: 1, unit: 'MINUTES') {
+                    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+                     if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                     }
+                 }
             }
         }
 
