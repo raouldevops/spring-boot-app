@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        Maven "MAVEN"
-    }
     options {
             skipStagesAfterUnstable()
     }
@@ -14,7 +11,7 @@ pipeline {
         }
         stage('start') {
             steps {
-                sh 'mvn -version' // Commande pour construire l'application Spring Boot
+                bat "mvn -version" // Commande pour construire l'application Spring Boot
             }
         }
         stage('Build') {
