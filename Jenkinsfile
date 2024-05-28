@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools {
        maven "MAVEN_HOME"
-       docker "DockerLatest"
     }
     stages {
         stage('Checkout') {
