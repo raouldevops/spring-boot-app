@@ -1,17 +1,13 @@
 pipeline {
     agent any
     tools {
-       maven "MAVEN_HOME" // Install the Maven version configured as "M3" and add it to the path.
+       maven "MAVEN_HOME"
+       docker "DockerLatest"
     }
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
-            }
-        }
-        stage('start') {
-            steps {
-                bat "mvn -version" // Commande pour construire l'application Spring Boot
             }
         }
         stage('Build') {
@@ -30,13 +26,10 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            environment {
-                BUILD_ID = 1
-            }
             steps {
                 script {
                     def dockerfile = 'Dockerfile' // Chemin vers votre Dockerfile
-                    def customImage = docker.build("spring-boot-app:${BUILD_ID}", "-f ${dockerfile} .")
+                    def customImage = docker.build("spring-boot-app:latest", "-f ${dockerfile} .")
                 }
             }
         }
@@ -44,8 +37,8 @@ pipeline {
             steps {
                 script {
                     def registryAddress = 'https://hub.docker.com' // Adresse du registre Docker
-                    def credentialsId = 'mon-identifiant-de-connexion' // ID des informations d'identification dans Jenkins
-                    def imageTag = "mon-image:${BUILD_ID}"
+                    def credentialsId = 'dockerCredentials' // ID des informations d'identification dans Jenkins
+                    def imageTag = "spring-boot-app:latest"
                     docker.withRegistry(registryAddress, credentialsId) {
                         customImage.push(imageTag)
                     }
