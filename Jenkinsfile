@@ -11,7 +11,7 @@ pipeline {
         }
         stage('start') {
             steps {
-                bat 'mvn -version' // Commande pour construire l'application Spring Boot
+                sh 'mvn -version' // Commande pour construire l'application Spring Boot
             }
         }
         stage('Build') {
