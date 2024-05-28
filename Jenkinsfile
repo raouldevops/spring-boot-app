@@ -1,6 +1,7 @@
 pipeline {
-    agent {
-        docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' }
+    agent any
+    options {
+            skipStagesAfterUnstable()
     }
     stages {
         stage('Checkout') {
@@ -10,12 +11,17 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package' // Commande pour construire l'application Spring Boot
+                sh 'mvn -B -DskipTests clean package' // Commande pour construire l'application Spring Boot
             }
         }
         stage('Test') {
             steps {
                 sh 'mvn test' // Commande pour exécuter les tests
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
         stage('Build Docker Image') {
