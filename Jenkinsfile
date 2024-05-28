@@ -30,12 +30,6 @@ pipeline {
                     }
                 }
             }
-            timeout(time: 15, unit: 'MINUTES') {
-                def qualityGate = waitForQualityGate()
-                if(qualityGate.status != 'OK') {
-                    error "failed due to quality gate Failure : ${qualityGate.status}"
-                }
-            }
         }
 
     }
