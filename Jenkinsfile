@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package' // Commande pour construire l'application Spring Boot
+                bat 'mvn clean package' // Commande pour construire l'application Spring Boot
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test' // Commande pour exécuter les tests
+                bat 'mvn test' // Commande pour exécuter les tests
             }
         }
         stage('Build Docker Image') {
