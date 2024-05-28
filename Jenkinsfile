@@ -17,16 +17,22 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarServer') {
-                    sh " mvn sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
+                    bat " mvn sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
                 }
-                timeout(time: 1, unit: 'MINUTES') {
-                    def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-                     if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                     }
-                 }
             }
         }
+
+        stage('Vérification du Quality Gate') {
+           steps {
+              timeout(time: 10, unit: 'MINUTES') {
+                def qg = waitForQualityGate() // Attend que le quality gate soit vérifié
+                if (qg.status != 'OK') {
+                  error "Quality gate failed: ${qg.status}"
+                }
+              }
+           }
+        }
+
 
     }
 }
