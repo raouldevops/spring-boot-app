@@ -10,13 +10,8 @@ pipeline {
             }
         }
         stage('Static Code Analysis') {
-            environment {
-                SONAR_URL = "http://host.docker.internal:9000"
-                SONAR_AUTH_TOKEN = "squ_1713402c7b1081cda649aa386d93a1ebbecf24f1"
-                GIT_BRANCH = "master"
-            }
             steps {
-                withSonarQubeEnv(credentialsId: 'TOKEN_SONAR',installationName: 'SonarServer') {
+                withSonarQubeEnv('SonarServer') {
                     bat " mvn sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
                 }
             }
