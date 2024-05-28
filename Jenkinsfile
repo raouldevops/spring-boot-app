@@ -9,7 +9,6 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Static Code Analysis') {
             environment {
                 SONAR_URL = "http://host.docker.internal:9000"
@@ -17,7 +16,7 @@ pipeline {
                 GIT_BRANCH = "master"
             }
             steps {
-                bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL} -Dsonar.branch=${GIT_BRANCH}"
+                bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL}"
             }
         }
         stage('Quality Gate Check') {
