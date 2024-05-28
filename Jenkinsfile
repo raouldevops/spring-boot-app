@@ -15,17 +15,14 @@ pipeline {
                 SONAR_URL = "http://host.docker.internal:9000"
                 SONAR_AUTH_TOKEN = "squ_1713402c7b1081cda649aa386d93a1ebbecf24f1"
                 GIT_BRANCH = "master"
-                scannerHome = tool 'SonarQubeScanner'
             }
             steps {
-                withSonarQubeEnv('SonarQubeLocalServer') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+                bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL} -Dsonar.branch=${GIT_BRANCH}"
             }
         }
         stage('Quality Gate Check') {
             steps {
-                timeout(time: 3, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
