@@ -16,7 +16,7 @@ pipeline {
                 GIT_BRANCH = "master"
             }
             steps {
-                withSonarQubeEnv(credentialsId: 'TOKEN_SONAR') {
+                withSonarQubeEnv(credentialsId: 'TOKEN_SONAR',installationName: 'SonarServer') {
                     bat " mvn sonar:sonar -Dintegration-tests.skip=true -Dmaven.test.failure.ignore=true"
                 }
             }
