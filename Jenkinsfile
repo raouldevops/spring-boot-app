@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.4-openjdk-17-slim' // Utilisez une image Maven avec Java 17
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // Montez le socket Docker pour accéder au démon Docker
-        }
-    }
+    agent none
     stages {
         stage('Checkout') {
             steps {
