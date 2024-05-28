@@ -16,7 +16,9 @@ pipeline {
                 GIT_BRANCH = "master"
             }
             steps {
-                bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL}"
+                withSonarQubeEnv('SonarQube') {
+                    bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL}"
+                }
             }
         }
         stage('Quality Gate Check') {
