@@ -1,7 +1,8 @@
 pipeline {
     agent {
-        dockerContainer {
-            image 'maven:3.9.3-eclipse-temurin-17'
+        docker {
+            image 'maven:3.8.4-openjdk-17-slim' // Utilisez une image Maven avec Java 17
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Montez le socket Docker pour accéder au démon Docker
         }
     }
     stages {
