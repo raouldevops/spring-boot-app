@@ -16,15 +16,16 @@ pipeline {
                 GIT_BRANCH = "master"
             }
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SONAR_URL}"
+                withSonarQubeEnv('SonarServer') {
+                    bat "mvn sonar:sonar -Dsonar.login=${SONAR_AUTH_TOKEN}"
                 }
             }
         }
         stage('Quality Gate Check') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+            timeout(time: 15, unit: 'MINUTES') {
+                def qualityGate = waitForQualityGate()
+                if(qualityGate.status != 'OK') {
+                    error "failed due to quality gate Failure : ${qualityGate.status}"
                 }
             }
         }
