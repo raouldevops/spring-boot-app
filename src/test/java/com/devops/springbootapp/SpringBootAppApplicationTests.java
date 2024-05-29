@@ -7,15 +7,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class SpringBootAppApplicationTests {
-	@Autowired
+
 	private SpringBootAppApplication springBootAppApplication;
-	@Test
-	void contextLoads() {
+
+	public SpringBootAppApplicationTests(SpringBootAppApplication springBootAppApplication) {
+		this.springBootAppApplication = springBootAppApplication;
 	}
 
 	@Test
-	void testHello() {
-		System.out.println("Hello ceci est un test unitaire 1");
+	void contextLoads() {
 	}
 
 	@Test
