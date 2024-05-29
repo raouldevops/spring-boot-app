@@ -13,7 +13,7 @@ public class SpringBootAppApplication {
 		SpringApplication.run(SpringBootAppApplication.class, args);
 	}
 	@GetMapping("/")
-	public String Home() {
+	public String home() {
 		return "index";
 	}
 }
