@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SpringBootAppApplicationTests {
 	@Autowired
-	SpringBootAppApplication springBootAppApplication;
+	private SpringBootAppApplication springBootAppApplication;
 	@Test
 	void contextLoads() {
 	}
