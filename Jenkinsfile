@@ -49,7 +49,7 @@ pipeline {
           steps {
             script {
               def dockerfile = 'Dockerfile' // Chemin vers votre Dockerfile
-              def customImage = docker.build("spring-boot-app:latest", "-f ${dockerfile} .")
+              def customImage = docker.build("raouldevops/spring-boot-app:latest", "-f ${dockerfile} .")
             }
           }
         }
