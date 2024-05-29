@@ -21,7 +21,7 @@ class SpringBootAppApplicationTests {
 	@Test
 	void testHome() {
 		String actual = springBootAppApplication.Home();
-		Assertions.assertEquals("index", actual);
+		Assertions.assertEquals("index", actual);//NOSONAR
 	}
 
 }
