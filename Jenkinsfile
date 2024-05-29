@@ -40,7 +40,7 @@ pipeline {
                       if (qg.status != 'OK') {
                               error "Quality gate failed: ${qg.status}"
                       }
-                      echo "Status du quality gate : ${qg.status}"
+                      echo "Status du quality gate : ${qg}"
                   }
                }
             }
