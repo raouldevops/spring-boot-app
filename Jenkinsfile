@@ -56,7 +56,7 @@ pipeline {
         stage('Push to Docker Hub') {
           steps {
             script {
-              def registryAddress = 'https://hub.docker.com/' // Adresse du registre Docker
+              def registryAddress = 'https://registry.hub.docker.com/' // Adresse du registre Docker
               def credentialsId = 'dockerCredentials' // ID des informations d'identification dans Jenkins
               def customImageTag = docker.image("raouldevops/spring-boot-app:latest")
               docker.withRegistry(registryAddress, credentialsId) {
